@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../static/js/jquery-1.11.3.js"></script>
+</head>
+<body>
+    <script>
+        //声明一个JS对象,用来表示王老师的信息
+        var obj = {
+            "name":"王老师",
+            "age":30,
+            "gender":"男"
+        }
+        console.log(obj.name);
+        console.log(obj.age);
+        console.log(obj.gender);
+        var wife = {
+            "name":"王夫人",
+            "age":40,
+            "gender":"男",
+            "hobby":"王老师"
+        }
+        console.log(wife.name);
+        console.log(wife.age);
+        console.log(wife.gender);
+        console.log(wife.hobby);
+        var arr = [
+            {
+                "name":"王老师",
+                "age":40,
+                "gender":"男"
+            },
+            {
+                "name":"王夫人",
+                "age":40,
+                "gender":"男"
+            },
+            {
+                "name":"王小超",
+                "age":12,
+                "gender":"男"
+            },
+        ];
+        $(arr).each(function (i,obj) {
+            console.log("第"+(i+1)+"个元素");
+            console.log("姓名"+obj.name);
+            console.log("年龄"+obj.age);
+            console.log("性别"+obj.gender);
+        });
+        //for (var i = 0;i<arr.length;i++){
+        //    var obj = arr[i];
+        //    console.log(obj.name);
+        //    console.log(obj.age);
+        //   console.log(obj.gender);
+        //}
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+
+1.多对多的关系映射
+    1.什么是多对多
+      A表中的一条数据可以与B表中的任意多条数据关联
+      B表中的一条数据可以与A表中的任意多条数据关联
+    2.在数据库中的实现
+      依托于第三张关联表来实现的
+    3.SQLAlchemy创建第三张表对应类
+2.cookies
+    1.什么是cookies
+        cookies是一种数据存储手段
+        将一段文本内容保存在客户端一种手段
+        并可以长时间保存
+    2.cookies的使用场合
+        1.记住密码
+        2.记住搜索文本
+    3.在flask中使用cookies
+        1.如何保存cookies到客户端
+            使用响应对象,将数据保存进客户端(浏览器)
+            1.resp = make_response("")
+            2.resp = redirect('/xxx')
+            cookies的语法:
+            响应对象.set_cookies(key,value,max_age)
+                key:字符串,要保存的cookies的值
+                value:字符串,要保存的cookie的值
+                max_age:最大的保存时间,取值数字,以s为单位
+        2.在服务器端获取cookies值
+            每次向服务器发送请求时,
+            浏览器会将cookies中所有的数据封装到request中并带到服务器
+            request.cookies获取所有的cookies
+        3.删除cookies内容
+            响应对象.delete_cookie('key')
+3.session - 会话
+    1.session是保存在服务器上,为每个浏览器所开辟的一段空间
+    目的:保存浏览器与服务器之间的交互状态(数据)
+    2.session在Flask中的实现
+        1.配置SECRET_KEY
+            app.config['SECRET_KEY']="haha"
+        2.使用session
+            from flask import session
+            1.向session保存数据
+                session['Key'] = value
+            2.从session中获取数据
+                value = session['Key']
+                value = session.get('Key')
+            3.删除session中的数据
+                del session['Key']
+    3.要保存进session的内容
+        多次与服务器交互时要用的数据需要保存进session
+        如:登录信息
+
+
+
+
+
+
+
+
