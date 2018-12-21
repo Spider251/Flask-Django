@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^02-referer/$', referer_views),
     url(r'^03-login/$', login_views, name='login'),
     url(r'^04-form/$', form_views),
-    url(r'^05-modelform/$', modelform_views)
+    url(r'^05-modelform/$', modelform_views),
+    url(r'^homework/$',homework),
 ]

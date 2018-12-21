@@ -142,4 +142,13 @@
                         labels = {
                             "属性名":"label文本",
                             "属性名":"label文本",
-                        }
+                        }   
+            练习:
+                1. 完善RegisterForm中的注册功能
+                    1. 连接数据库
+                    2. 将已得到的 user 对象保存回数据库
+                2. 利用 Models 和 Forms 完成登录操作
+                    1. 创建 LoginForm, 继承自 forms.ModelsForm
+                    2. 通过内部类 Meta 关联 Models
+                    3. 从 User 类中取出 uname, upwd 两个属性生成表单控件
+                    4. 在表单中提交时, 将数据提交给服务器,验证用户名和密码是否正确

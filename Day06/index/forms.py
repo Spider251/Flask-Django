@@ -1,7 +1,7 @@
 from django import forms
 
 # 为topic控件初始化数据
-from .models import User
+from .models import *
 
 TOPIC_CHOICE = (
     ('1', '好评'),
@@ -42,4 +42,14 @@ class RegisterForm(forms.ModelForm):
             "uname": "用户名称",
             "upwd": "用户密码",
             "uemail": "电子邮件",
+        }
+
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = Models
+        fields = "__all__"
+        labels = {
+            "uname": "用户名称",
+            "upwd": "用户密码",
         }

@@ -64,5 +64,24 @@ def modelform_views(request):
         if form.is_valid():
             # 取值
             user = User(**form.cleaned_data)
-            print("uname:%s,upwd:%s,email:%s"%(user.uname,user.upwd,user.uemail))
+            user.save()
+            print("uname:%s,upwd:%s,email:%s" % (user.uname, user.upwd, user.uemail))
         return HttpResponse("OK")
+
+
+def homework(request):
+    if request.method == 'GET':
+        form = LoginForm()
+        return render(request, '06-homework.html', locals())
+    else:
+        form = LoginForm(request.POST)
+        user = User.objects.all()
+        for i in user:
+            upwd = i.upwd
+            uname = i.uname
+            if form.is_valid():
+                login = Models(**form.cleaned_data)
+                if login.uname == uname and login.upwd == upwd:
+                    return HttpResponse("登录成功")
+            print(login.uname,uname,login.upwd,upwd)
+            return HttpResponse("登录失败")
