@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>OP</th>
+    </tr>
+        {% for i in authors %}
+            <tr></tr>
+                <th>{{ i.id }}</th>
+                <th>{{ i.name }}</th>
+                <th>{{ i.age }}</th>
+                <th>{{ i.email }}</th>
+                <th>
+                    <a href="/05-delete/{{ i.id }}/">删除</a>
+                    <a href="/06-show/{{ i.id }}">修改</a>
+                </th>
+            <tr></tr>
+        {% endfor %}
+</table>
+
+</body>
+</html>

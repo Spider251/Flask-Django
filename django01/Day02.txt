@@ -117,7 +117,7 @@
             }
             1. 使用 loader 加载模板
               t = loader.get_template('xxx.html')
-              html = t.render(dic)
+              html = t.render({'变量字典'})
               return HttpResponse(html,locals())
             2. 使用 render 加载模板
                 return render(request,'xxx.html',dic)

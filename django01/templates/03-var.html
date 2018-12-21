@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for i in list %}
+        <h3 style="background:
+        {% if forloop.first %}
+            red
+        {% elif forloop.last %}
+            yellow
+        {% else %}
+            deeppink
+        {% endif %}
+        ">{{ i }}</h3>
+    {% endfor %}
+</body>
+</html>

@@ -10,6 +10,10 @@ urlpatterns = [
     url(r'^$', index_views),
     url(r'^01-temp/$', temp_views),
     url(r'^02-temp/$', temp_views02),
-    url(r'03-var/$',var_views),
+    url(r'^03-var/$', var_views),
+    url(r'^loop_views/$', loop_views),
+    url(r'^04-static/$',static_views),
+    url(r'^05-alias01/$',alias01_views,name="a01"),
+    url(r'^06-alias02/(\d{4})/$',alias02_views,name='a02'),
 
 ]

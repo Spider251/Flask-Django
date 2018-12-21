@@ -1,0 +1,109 @@
+@charset 'utf-8'; /*设置CSS编码方式*/
+body,p,h2{
+	margin: 0;
+}
+/*1. 外部容器的样式*/
+#cotainer{
+	width: 990px;
+	margin: 0 auto;
+}
+/*2. 页面标题*/
+h2{
+	font-weight: normal;
+	color: #999;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20px;
+	margin: 20px auto;
+}
+/*3 页面主体*/
+.left{
+	float: left;
+	position: relative;
+}
+.left a{
+	position: absolute;
+	width: 153px;
+	height: 48px;
+	text-align: center;
+	line-height: 48px;
+	text-decoration: none;
+	color: #64a131;
+	border: 1px solid #64a131;
+	border-radius: 5px;
+	bottom: 20px;
+	left: 177px;
+}
+
+/*右列的样式*/
+.right{
+	float: right;
+	margin-top: 70px;
+	margin-right: 47px;
+}
+.form-line>p{
+	float: left;
+	width: 64px;
+	height: 40px;
+	text-align: right;
+	line-height: 40px;
+	color: #A8A6A4;
+	margin-right: 30px;
+}
+
+/*box-sizing:
+	调整元素最终尺寸的计算方式
+	默认 content-box (标准计算方式, 依次相加)
+	border-box : 元素width/height属性指定的上包含边框在内的区域大小
+		width = border + padding + content
+		最终在文档中的尺寸 :
+			margin + width
+	
+*/
+.form-control{
+	box-sizing: border-box;
+	width: 300px;
+	height: 40px;
+	border: 1px solid #ccc;
+	outline: none;
+	font-size: 16px;
+	padding-left: 10px;
+}
+
+.form-line{
+	margin-bottom: 30px;
+}
+.isSave{
+	color: #999999;
+}
+.isSave>p{
+	float: right;
+}
+.isSave>input{
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
+.isSave a{
+	color: #999;
+}
+
+/*第四行*/
+.btn{
+	box-sizing: border-box;
+	width: 145px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #64A131;
+	background-color: #64A131;
+	color: white;
+	border-radius: 5px;
+	font-size: 18px;
+}
+.registBtn{
+	display: inline-block;
+	background-color: white;
+	color: #64A131;
+	margin-left: 10px;
+	text-decoration: none;
+}

@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
@@ -42,7 +44,7 @@ def var_views(request):
     }
     dog = Animal()
     ret = sayHi()
-    return render(request,'02-var.html',locals())
+    return render(request, '02-var.html', locals())
 
 
 def sayHi():
@@ -54,3 +56,28 @@ class Animal(object):
 
     def eat(self):
         return "eat" + self.name
+
+
+def loop_views(request):
+    list = ['孙悟空', '西门庆', '曹操', '贾宝玉']
+    return render(request, '03-var.html', locals())
+
+
+# 模板里面演示静态文件
+def static_views(request):
+    return render(request, '04-static.html')
+
+
+def alias01_views(request):
+    # 通过 a02 以及对应的参数, 反向解析成 a02 的地址
+    url = reverse('a02',args=('2015',))
+    print("a02的地址为:"+url)
+    return render(request, '05-alias.html')
+
+
+def alias02_views(request, year):
+    url = reverse('a01')
+    # 通过 a01 反向生成对应的地址
+    print("a01的地址为:"+url)
+    print("年份为:" + year)
+    return render(request, '06-alias.html')

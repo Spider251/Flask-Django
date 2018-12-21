@@ -1,0 +1,168 @@
+1. Models - 模型
+    1. 数据库的同步操作
+        1.  ./manage.py makemigrations
+            作用:将每个应用下的models.py文件生成一个数据库中间文件, 并将中间文件保存在migrations的目录中
+                1. models.py中必须有内容
+                2. 较上一次的执行必须有改动
+                    满足以上两个条件, 则可以生成中间文件
+        2.  ./manage.py migrate
+            作用:将每个应用中的migrations目录中的中间文件同步到数据库
+    2. 编写Models
+        1. 举个例子
+            在 index 应用中的 models.py 中
+            # 创建一个实体类 - Publisher(读音:'怕不离身') 表示"出版社"
+            # 1.name:出版社名称 - varchar
+            # 2.address:出版社地址 - varchar
+            # 3.city:出版社所在城市 - varchar
+            # 4.country:出版社所在国家 - varchar
+            # 5.website:出版社网址 - varchar
+        2. 创建Models语法规范
+            属性 = models.字段类型()
+            字段类型 : 映射到数据库表中的数据类型
+                CharField() - varchar(允许自定义长度)
+                URLField() - varchar(长度默认为200)
+            字段选项 : 指定生成的字段的说明信息
+                max_length=30
+
+            常用的字段类型(FieldTypes)
+            1. BooleanField()
+                编程语言中使用 True 和 False 表示该列的值
+                数据库中使用 1 和 0 来表示具体的值
+                数据库中的数据类型为 : tinyint
+            2. CharField()
+                编程语言中使用 字符串 来表示该列的值
+                数据库中的数据类型为:varchar
+            3. DateField()
+                编程语言中使用 字符串 或 date类型的数据表示该列的值
+                数据库中的数据类型为:date
+            4. DateTimeField()
+                同上
+                数据库中的数据类型为:DateTime
+            5. DecimalField()
+                编程语言中使用数字来表示该列的值
+                数据库中使用 decimal
+                money=models.DecimalField(max_digits=7,decimal_places=2)
+            6. FloatField()
+                数据库中使用 : float
+            7. IntegerField()
+                数据库中使用 : int
+            8. EmailField()
+                编程语言中使用 字符串 表示该列的值
+                数据库中使用 : varchar
+            9. URLField()
+                编程语言中使用 字符串 表示该列的值
+                数据库中的使用 : varchar
+            10. ImageField()
+                作用 : 存储图片路径
+                数据库中使用 : varchar
+
+            字段选项(Field Options):
+            1. null
+                作用:指定当前字段是否允许为空, 默认为False,不能为空
+            2. default
+                作用:指定当前字段的默认值
+            3. db_column
+                作用:指定当前字段映射到数据库中的列名,如果不指定,则采用当前属性名作为列名
+            4. db_index
+                 作用:为当前字段创建索引, True则添加索引,
+            5. verbose_name
+                作用:为当前字段指定后台显示的别名
+
+            练习:
+                在 index 应用中的 models.py 中追加两个 class
+                1. Author - 作者
+                    1. name - 姓名
+                    2. age - 年龄
+                    3. email - 邮箱(允许为空)
+                2. Book - 图书
+                    1. title - 书名
+                    2. publicate_date - 出版时间
+    3. 模型中的CRUD create Retrieve(读音:'睿吹五') update delete
+        1. 添加数据
+            1. 使用 Entry.objects.create(属性=值, 属性=值)
+                Entry:可以表示任意一个实体类
+                返回值:将创建好的实体对象进行返回
+            2. 创建 Entry 对象, 并通过对.save()进行保存
+                obj = Entry(属性=值, 属性=值)
+                obj.属性=值
+                obj.save()
+                注意:该方法无返回值, obj会被重新赋值
+            3. 使用字典创建对象, 并通过save()进行保存
+                dic = {
+                    "属性":"值",
+                    "属性":"值",
+                }
+                obj = Entry(**dic)
+                obj.save()
+                注意:该方法无返回值, obj会被重新赋值
+        2. 查询数据(重点)
+            通过 Entry.objects 属性调用查询接口
+            e.g.
+                Entry.objects.all()
+                Entry.objects.filter()
+                ... ...
+            所有的查询接口的后面, 都可以通过一个query属性来获得到对应的sql语句
+
+            1. 基本查询操作
+                语法:all()
+                用法:Entry.objects.all()
+                返回值:QuerySet - 查询集
+            2. 查询返回指定列
+                语法: values() | values('列1','列2')
+                用法:
+                    Entry.objects.values('列1','列2')
+                    Entry.objects.all().values('列1','列2')
+                返回:QuerySet,会将查询出来的部分列封装到字典中再封装到列表中
+            3. 查询返回指定列
+                语法:values_list('列1','列2')
+                用法:同上
+                返回值:QuerySet,会将查询出来的部分列封装到元组中再封装到列表中
+            4. 只查询一条数据
+                语法:get(条件)
+                作用:查询只能返回一条数据
+                注意:
+                    该方法还能返回一条数据
+                    查询结果多余一条或查询结果的话都会抛出异常
+            5. 根据条件查询部分行数据
+                语法:filter(条件)
+                用法:Entry.objects.filter()
+                返回:QuerySet
+                e.g.
+                    1. 查询 id 为1的Book的信息
+                        list = Book.objects.filter(id=1)
+                    2. 查询 publicate_date 为 2015-10-12 的Book
+                        Book.objects.filter(publicate_date='2015-10-12 00:00:00.000000')
+                如果需要非等值条件查询的话,可以使用Django提供的查询谓词来实现.
+                Entry.objects.filter(属性_谓词=值)
+
+                练习:
+                    1. 查询Author表中age大于等于30的Author的信息
+                    2. 查询Author表中所有姓"王"的信息
+                    3. 查询Author表中Email中包含"wang"的Author的信息
+                    4. 查询Author表中age大于"RapWang"的age的所有的信息
+            6. 做不等条件筛选
+                语法: exclude(条件)
+                用法: Entry.object.exclude(条件)
+            7. 排序查询
+                语法: order_by()
+                用法: Entry.objects.order_by('列','列')
+                默认是升序排序, 如果向压迫降序则在列名前添加即可
+            8. 聚合查询(不带分组)
+                语法: aggregate()
+                用法: Entry.objects.aggregate(名=聚合函数('列'))
+                    聚合函数:
+                        1. Avg() : 平均值
+                        2. Sum() : 和
+                        3. Count() : 数量
+                        4. Min() : 最小值
+                        6. Max() : 最大值
+            9. 聚合查询(带分组聚合)
+                语法: annotate()
+                用法: Entry.objects.values('分组列名').annotate(列=聚合函数()).values('查询列名')
+                Book.objects.values('publicate_date').annotate(count=Count('title')).values('publicate_date','count').all()
+
+            作业:
+                1. 查询 Author 表中的所有数据
+                2. 将数据显示在01-authors.html中以表格的形式进行显示
+                    ID  姓名  年龄  邮箱  操作
+                                        删除 修改
